@@ -12,7 +12,6 @@ const App = () => {
 	const [password, setPassword] = useState('')
 	const [user, setUser] = useState(null)
 	const [showNotification, setShowNotification] = useState(false)
-	const [newBlog, setNewBlog] = useState({})
 	const [notificationMessage, setNotificationMessage] = useState('')
 	const blogFormRef = useRef()
 
@@ -65,8 +64,7 @@ const App = () => {
 	}
 
 
-	const handleCreate = async (e) => {
-		e.preventDefault()
+	const handleCreate = async (newBlog) => {
 		blogFormRef.current.toggleVisibility()
 		try {
 			const addedBlog = await blogService.create(newBlog)
@@ -74,7 +72,6 @@ const App = () => {
 		} catch (e) {
 			console.log(e)
 		}
-		e.target.reset()
 	}
 
 	const addLikeToBlog = async (blog) => {
@@ -107,7 +104,7 @@ const App = () => {
 			<br></br>
 			<div>
 				<Togglable ref={blogFormRef} buttonLabel='New Blog'>
-					<NewBlog newBlog={newBlog} setNewBlog={setNewBlog} handleCreate={handleCreate} />
+					<NewBlog handleCreate={handleCreate} />
 				</Togglable>
 			</div>
 			<br></br>

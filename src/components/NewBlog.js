@@ -1,14 +1,21 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 
-const NewBlog = ({ handleCreate, newBlog, setNewBlog }) => {
+const NewBlog = ({ handleCreate }) => {
+	const [newBlog, setNewBlog] = useState({})
 
 	const handleChange = e => {
 		const { name, value } = e.target
 		setNewBlog({ ...newBlog, [name]: value })
 	}
 
+	const addBlog = e => {
+		e.preventDefault()
+		handleCreate(newBlog)
+		setNewBlog({})
+	}
+
 	return (
-		<form onSubmit={handleCreate}>
+		<form onSubmit={addBlog}>
 			<div>
 				<label>title:</label>
 				<input type='text' name='title' onChange={handleChange}></input>

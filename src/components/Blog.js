@@ -14,7 +14,7 @@ const Blog = ({ blog, addLikeToBlog, removeBlog }) => {
 	const showWhenVisible = { display: isVisible ? '' : 'none' }
 	const isBlogCreatorLoggedUser = () => {
 		const user = JSON.parse(window.localStorage.getItem('user'))
-		return user.username === blog.author
+		return user?.username === blog.author
 	}
 	const showRemoveButton = { display: isBlogCreatorLoggedUser() ? '' : 'none' }
 	const toggleVisibility = () => setIsVisible(!isVisible)
@@ -26,10 +26,10 @@ const Blog = ({ blog, addLikeToBlog, removeBlog }) => {
 	}
 
 	return (
-		<div style={blogStyle}>
+		<div className='blog' style={blogStyle}>
 			{blog.title}
-			<button onClick={() => toggleVisibility()}>{isVisible ? 'hide' : 'view'}</button>
-			<div style={showWhenVisible}>
+			<button className='viewButton' onClick={() => toggleVisibility()}>{isVisible ? 'hide' : 'view'}</button>
+			<div style={showWhenVisible} className='hiddenContent'>
 				<div>
 					{blog.url}
 				</div>
